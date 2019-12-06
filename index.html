@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+<!-- include ar.js -->
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.0/aframe/build/aframe-ar.js"></script>
+
+<!-- to load .ply model -->
+<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
 <!-- include A-Frame obviously-->
     <meta name="Multimarker Demo" >
   <script>   //Loads multimarker file to localstorage otherwise the area preset will only look for hiro alone
@@ -25,14 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->  
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" href="index.css">
-  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-<!-- include ar.js -->
-<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.0/aframe/build/aframe-ar.js"></script>
 
-<!-- to load .ply model -->
-<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
 
 
 <body>
@@ -57,8 +58,8 @@
       <img id="Illustration_11" src="image/Illustration_11.png">
       <img id="Cloud1_b" src="image/Cloud01-2_b.png">
       <img id="Cloud1_a" src="image/Cloud01-2_a.png">
-      <a-asset-item id="Model_Asset_obj_1" src="models/ring.obj?v=1575442426401"></a-asset-item>
-      <a-asset-item id="Model_Asset_mtl_1" src="ring.mtl?v=1575442426858"></a-asset-item>
+      <a-asset-item id="Model_Asset_obj_1" src="models/ring.obj"></a-asset-item>
+      <a-asset-item id="Model_Asset_mtl_1" src="models/ring.mtl"></a-asset-item>
       <img id="ringfont" src="image/Illustration_04-2_b1.png">
       <img id="ringback" src="image/Illustration_04-2_b2.png">
     </a-assets>
