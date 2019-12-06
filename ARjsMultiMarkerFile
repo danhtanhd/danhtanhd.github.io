@@ -1,11 +1,4 @@
-three.js:22661 THREE.WebGLRenderer 103
-threex-artoolkitprofile.js:145 stop profile.trackingBackend() obsolete function. use .trackingMethod instead
-ARjs.Profile.trackingBackend @ threex-artoolkitprofile.js:145
-artoolkit.min.js:1 Allocated videoFrameSize 1228800
-artoolkit.min.js:1 Pattern detection mode set to 1.
-artoolkit.min.js:1 Pattern ratio size set to 0.500000.
-localStorage.getItem('ARjsMultiMarkerFile');
-"{
+{
 	"meta": {
 		"createdBy": "Area Learning - AR.js 2.0.8",
 		"createdAt": "2019-12-06T04:45:43.834Z"
@@ -61,4 +54,4 @@ localStorage.getItem('ARjsMultiMarkerFile');
 			]
 		}
 	]
-}"
+}
