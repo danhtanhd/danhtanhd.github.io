@@ -10,34 +10,70 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
 <!-- include A-Frame obviously-->
     <meta name="Multimarker Demo" >
-  <script>   //Loads multimarker file to localstorage otherwise the area preset will only look for hiro alone
-  var a = window.location.toString();
-  var file = a.substring(a.indexOf("?") + 1);
-    
-      var xobj = new XMLHttpRequest();
-            xobj.overrideMimeType("application/json");
-            if(file==a){
-              xobj.open('GET', 'ARjsMultiMarkerFile', true); // 
-            }
-            else{
-              xobj.open('GET', file, true); // 
-            }
-          xobj.onreadystatechange = function () { 
-      if (xobj.readyState == 4 && xobj.status == "200") {
-        localStorage.setItem('ARjsMultiMarkerFile',xobj.responseText);
-        }};
-        xobj.send();
-            </script>
+		<script>   //Loads multimarker file to localstorage otherwise the area preset will only look for hiro alone
+			var a = window.location.toString();
+			var file = a.substring(a.indexOf("?") + 1);
+			
+			var xobj = new XMLHttpRequest();
+					xobj.overrideMimeType("application/json");
+					if(file==a){
+					  xobj.open('GET', 'ARjsMultiMarkerFile', true); // 
+					}
+					else{
+					  xobj.open('GET', file, true); // 
+					}
+				  xobj.onreadystatechange = function () { 
+			  if (xobj.readyState == 4 && xobj.status == "200") {
+				localStorage.setItem('ARjsMultiMarkerFile',xobj.responseText);
+				}};
+				xobj.send();
+         </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <script>
+			AFRAME.registerComponent("listener", {
+		  init: function() {
+			this.target = document.querySelector('#target'); // your video
+			this.prevPosition = null; // initially there is no position or rotation
+			this.prevRotation = null;
+		  },
+
+		  tick: function() {
+			if (this.el.object3D.visible) {
+			  this.target.setAttribute('visible', 'true')
+
+			  if(!this.prevPosition && !this.prevRotation) { 
+				// there are no values to lerp from - set the initial values
+				this.target.setAttribute('position', this.el.getAttribute('position'))
+				this.target.setAttribute('rotation', this.el.getAttribute('rotation'))
+			  } else {
+				// use the previous values to get an approximation 
+				this.target.object3D.position.lerp(this.prevPosition, 0.1)
+
+				// this (below) may seem ugly, but the rotation is a euler, not a THREE.Vector3, 
+				// so to use the lerp function i'm doing some probably unnecessary conversions
+				let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
+				this.target.object3D.rotation.setFromVector3(rot)
+			  }
+			  // update the values
+			  this.prevPosition = this.el.object3D.position
+			  this.prevRotation = this.el.object3D.rotation
+			} else {
+			 // the marker dissapeared - reset the values
+			 this.target.setAttribute('visible', 'false')
+			 this.prevPosition = null;
+			 this.prevRotation = null;
+		   }
+		  }
+		})
+  </script>
     <!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->  
 
 
 
 <body>
-<a-scene embedded arjs="trackingMethod: best; debugUIEnabled: false; sourceType: webcam;">
+<a-scene embedded arjs="trackingMethod: best; debugUIEnabled: false; sourceType: webcam;" listener>
     <a-assets>
       <img id="Cloud03" src="image/Cloud-03_a.png">
       <img id="Cloud02" src="image/Cloud-02.png">
@@ -64,7 +100,7 @@
       <img id="ringback" src="image/Illustration_04-2_b2.png">
     </a-assets>
    <a-marker lerpsmooth preset="area" smooth="true">
-   <a-entity rotation="-90 0 0" position="0 0 0" scale="2.34 2.34 2.34">
+   <a-entity rotation="-90 0 0" position="0 0 0" scale="2.34 2.34 2.34" id="target">
       <!--<a-entity obj-model="obj: #Model_Asset_obj_1; mtl: #Model_Asset_mtl_1" id="Model_1" src="https://cdn.glitch.com/c628413c-a99a-4adc-8775-41a55896ce11%2FIllustration_04-2_b1.png?v=1575526695674" class="intersectable" scale="0.6 0.6 0.6" radius="0.05" position="-0.27 1.8 -0.97" rotation="0 0 0" color="#FFFFFF" transparent=False
         animation__sphere_2_f0= "property: position;  to: -0.3 1.8 -0.927; dur: 0; easing: linear; "
         animation__sphere_2_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
