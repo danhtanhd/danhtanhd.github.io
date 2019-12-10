@@ -32,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
 			AFRAME.registerComponent("listener", {
-		  init: function() {
+		    init: function() {
 			this.target = document.querySelector('#target'); // your video
 			this.prevPosition = null; // initially there is no position or rotation
 			this.prevRotation = null;
@@ -100,6 +100,7 @@
     </a-assets>
    <a-marker lerpsmooth preset="hiro" smooth="true">
    <a-entity rotation="-90 0 0" position="0 0 0" scale="2.34 2.34 2.34" id="target">
+   <a-entity rotation="-90 0 0" scale="2.34 2.34 2.34">
       <!--<a-entity obj-model="obj: #Model_Asset_obj_1; mtl: #Model_Asset_mtl_1" id="Model_1" src="https://cdn.glitch.com/c628413c-a99a-4adc-8775-41a55896ce11%2FIllustration_04-2_b1.png?v=1575526695674" class="intersectable" scale="0.6 0.6 0.6" radius="0.05" position="-0.27 1.8 -0.97" rotation="0 0 0" color="#FFFFFF" transparent=False
         animation__sphere_2_f0= "property: position;  to: -0.3 1.8 -0.927; dur: 0; easing: linear; "
         animation__sphere_2_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
@@ -251,8 +252,8 @@
         animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-image>
    
 
-      <a-entity obj-model="obj: https://cdn.glitch.com/c628413c-a99a-4adc-8775-41a55896ce11%2Fbase.obj?v=1575345796978; mtl: #Model_Asset_mtl_1" id="Model_2" class="intersectable" scale="0.008 0.008 0.008" position="0 0 0" rotation="0 0 0" color="#ffffff" transparent="False"></a-entity>
-
+		<a-entity obj-model="obj: https://cdn.glitch.com/c628413c-a99a-4adc-8775-41a55896ce11%2Fbase.obj?v=1575345796978; mtl: #Model_Asset_mtl_1" id="Model_2" class="intersectable" scale="0.008 0.008 0.008" position="0 0 0" rotation="0 0 0" color="#ffffff" transparent="False"></a-entity>
+		</a-entity>
    </a-entity>
 
             <!--
