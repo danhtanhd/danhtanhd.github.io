@@ -12,5 +12,5 @@ newmtl DesignA
 	Kd 0.588000 0.588000 0.588000
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka models/ARModel_191212_003/maps/DesignA.jpg
-	map_Kd models/ARModel_191212_003/maps/DesignA.jpg
+	map_Ka maps\DesignA.jpg
+	map_Kd maps\DesignA.jpg
