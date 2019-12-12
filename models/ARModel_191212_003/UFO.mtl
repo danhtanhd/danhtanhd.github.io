@@ -12,8 +12,8 @@ newmtl UFO_BODY
 	Kd 0.588000 0.588000 0.588000
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka maps\UFO_BODY_ok.jpg
-	map_Kd maps\UFO_BODY_ok.jpg
+	map_Ka models/ARModel_191212_003/maps/UFO_BODY_ok.jpg
+	map_Kd models/ARModel_191212_003/maps/UFO_BODY_ok.jpg
 
 newmtl UFO_TOP
 	Ns 10.000000
@@ -26,8 +26,8 @@ newmtl UFO_TOP
 	Kd 0.588000 0.588000 0.588000
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka maps\UFO_top.jpg
-	map_Kd maps\UFO_top.jpg
+	map_Ka models/ARModel_191212_003/maps/UFO_top.jpg
+	map_Kd models/ARModel_191212_003/maps/UFO_top.jpg
 
 newmtl UFO_BAR
 	Ns 10.000000
@@ -40,8 +40,8 @@ newmtl UFO_BAR
 	Kd 0.588000 0.588000 0.588000
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka maps\UFO_BAR.jpg
-	map_Kd maps\UFO_BAR.jpg
+	map_Ka models/ARModel_191212_003/maps/UFO_BAR.jpg
+	map_Kd models/ARModel_191212_003/maps/UFO_BAR.jpg
 
 newmtl UFO_Shpere
 	Ns 10.000000
@@ -54,5 +54,5 @@ newmtl UFO_Shpere
 	Kd 0.588000 0.588000 0.588000
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka maps\UFO_sphere.jpg
-	map_Kd maps\UFO_sphere.jpg
+	map_Ka models/ARModel_191212_003/maps/UFO_sphere.jpg
+	map_Kd models/ARModel_191212_003/maps/UFO_sphere.jpg
