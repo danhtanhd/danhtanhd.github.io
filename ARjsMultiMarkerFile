@@ -8,7 +8,7 @@
 		{
 			"parameters": {
 				"type": "pattern",
-				"patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterA.patt"
+				"patternUrl": "marker/pattern-marker_a.patt"
 			},
 			"poseMatrix": [
 				1,
@@ -32,7 +32,7 @@
 		{
 			"parameters": {
 				"type": "pattern",
-				"patternUrl": "https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/pattern-files/pattern-letterB.patt"
+				"patternUrl": "marker/pattern-marker_b.patt"
 			},
 			"poseMatrix": [
 				0.9965056562259645,
