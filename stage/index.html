@@ -1,0 +1,230 @@
+<!-- BEGIN: Top HTML -->
+<!DOCTYPE html>
+<!-- include aframe -->
+<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+<!-- include ar.js -->
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+
+<!-- to load .ply model -->
+<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
+
+<!-- END: Top HTML -->
+<!-- BEGIN: Unity Compiled Events -->
+<script>
+var markerFound = 0;
+AFRAME.registerComponent('button', {
+init: function () {
+var elem = document.documentElement;
+var marker = document.querySelector("#marker");
+var fullbutton = document.querySelector("#fullscreen");
+marker.addEventListener("markerFound", function (evt) {
+markerFound = 1;
+});
+marker.addEventListener("markerLost", function (evt) {
+markerFound = 0;
+});
+fullbutton.addEventListener("click", function (evt) {
+                if (fullscreen == 0) {
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.mozRequestFullScreen) {
+                        /* Firefox */
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        /* Chrome, Safari and Opera */
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.msRequestFullscreen) {
+                        /* IE/Edge */
+                        elem.msRequestFullscreen();
+                    }
+                    fullbutton.setAttribute("src", "../exit_fullscreen.png");
+                    fullscreen = 1;
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                    fullbutton.setAttribute("src", "../fullscreen.png");
+                    fullscreen = 0;
+                }
+
+            });
+},
+tick: function (totalTime, deltaTime) {
+var dTime = deltaTime / 1000;
+
+if (markerFound == 1) {
+}
+
+function bezierEvaluate(p0, p1, p2, p3, t) {
+                var u = (1 - t);
+                var uu = u * u;
+                var uuu = u * u * u;
+                var tt = t * t;
+                var ttt = t * t * t;
+                //B(t) = (1-t)^3*P0 + 3*(1-t)^2*t*P1 + 3*(1-t)*t^2*P2 + t^3*P3 , 0 < t < 1
+                return (uuu * p0 + 3 * uu * t * p1 + 3 * u * tt * p2 + ttt * p3);
+
+            }
+           function bezierPath(p0, p1, p2, p3, t) {
+                return new THREE.Vector3(
+                    bezierEvaluate(p0.x, p1.x, p2.x, p3.x, t),
+                    bezierEvaluate(p0.y, p1.y, p2.y, p3.y, t),
+                    bezierEvaluate(p0.z, p1.z, p2.z, p3.z, t)
+                );
+            }
+
+        }
+});
+</script>
+<!-- END: Unity Compiled Events -->
+
+<!-- BEGIN: Middle HTML -->
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+<div style='position: absolute; bottom: 5px; left: 30px; width:100%; text-align: right; z-index: 1;'>
+        <input type="image" id="fullscreen" src="../fullscreen.png" style='position: absolute; bottom: 0px; right: 35px;'>
+        </input>
+    </div>
+<!-- <a-scene embedded arjs='debugUIEnabled: false; sourceType: video; sourceUrl:../../data/videos/headtracking.mp4;'> -->
+    <a-scene embedded arjs='debugUIEnabled: false; sourceType: webcam' vr-mode-ui='enabled: false'>
+    <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: .intersectable; useWorldCoordinates: true;"></a-entity>
+<!-- END: Middle HTML -->
+
+<!-- BEGIN: Unity Compiled Assets -->
+<a-assets>
+<a-asset-item id="Cloud_A_Asset_obj_0" src="models/Cloud_A.obj"></a-asset-item>
+<a-asset-item id="Cloud_A_Asset_mtl_0" src="models/Cloud_A.mtl"></a-asset-item>
+<a-asset-item id="Build_B_Top_Asset_obj_1" src="models/Build_B_Top.obj"></a-asset-item>
+<a-asset-item id="Build_B_Top_Asset_mtl_1" src="models/Build_B_Top.mtl"></a-asset-item>
+<a-asset-item id="Build_B_Bot_Asset_obj_2" src="models/Build_B_Bot.obj"></a-asset-item>
+<a-asset-item id="Build_B_Bot_Asset_mtl_2" src="models/Build_B_Bot.mtl"></a-asset-item>
+<a-asset-item id="Build_C_Top_Asset_obj_3" src="models/Build_C_Top.obj"></a-asset-item>
+<a-asset-item id="Build_C_Top_Asset_mtl_3" src="models/Build_C_Top.mtl"></a-asset-item>
+<a-asset-item id="Build_C_Bot_Asset_obj_4" src="models/Build_C_Bot.obj"></a-asset-item>
+<a-asset-item id="Build_C_Bot_Asset_mtl_4" src="models/Build_C_Bot.mtl"></a-asset-item>
+<a-asset-item id="Build_A_Asset_obj_5" src="models/Build_A.obj"></a-asset-item>
+<a-asset-item id="Build_A_Asset_mtl_5" src="models/Build_A.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B001_Asset_obj_6" src="models/Cloud_B001.obj"></a-asset-item>
+<a-asset-item id="Cloud_B001_Asset_mtl_6" src="models/Cloud_B001.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B002_Asset_obj_7" src="models/Cloud_B002.obj"></a-asset-item>
+<a-asset-item id="Cloud_B002_Asset_mtl_7" src="models/Cloud_B002.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B003_Asset_obj_8" src="models/Cloud_B003.obj"></a-asset-item>
+<a-asset-item id="Cloud_B003_Asset_mtl_8" src="models/Cloud_B003.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B004_Asset_obj_9" src="models/Cloud_B004.obj"></a-asset-item>
+<a-asset-item id="Cloud_B004_Asset_mtl_9" src="models/Cloud_B004.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B005_Asset_obj_10" src="models/Cloud_B005.obj"></a-asset-item>
+<a-asset-item id="Cloud_B005_Asset_mtl_10" src="models/Cloud_B005.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B_nuki_0_Right_Asset_obj_11" src="models/Cloud_B_nuki_0_Right.obj"></a-asset-item>
+<a-asset-item id="Cloud_B_nuki_0_Right_Asset_mtl_11" src="models/Cloud_B_nuki_0_Right.mtl"></a-asset-item>
+<a-asset-item id="Cloud_B_nuki_2_Right_Asset_obj_12" src="models/Cloud_B_nuki_2_Right.obj"></a-asset-item>
+<a-asset-item id="Cloud_B_nuki_2_Right_Asset_mtl_12" src="models/Cloud_B_nuki_2_Right.mtl"></a-asset-item>
+<a-asset-item id="Cloud_C_Asset_obj_13" src="models/Cloud_C.obj"></a-asset-item>
+<a-asset-item id="Cloud_C_Asset_mtl_13" src="models/Cloud_C.mtl"></a-asset-item>
+<a-asset-item id="Cloud_C001_Asset_obj_14" src="models/Cloud_C001.obj"></a-asset-item>
+<a-asset-item id="Cloud_C001_Asset_mtl_14" src="models/Cloud_C001.mtl"></a-asset-item>
+<a-asset-item id="Cloud_C_nuki_2_Left_Asset_obj_15" src="models/Cloud_C_nuki_2_Left.obj"></a-asset-item>
+<a-asset-item id="Cloud_C_nuki_2_Left_Asset_mtl_15" src="models/Cloud_C_nuki_2_Left.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_01_Asset_obj_16" src="models/Cloud_Maru_01.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_01_Asset_mtl_16" src="models/Cloud_Maru_01.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_002_Asset_obj_17" src="models/Cloud_Maru_002.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_002_Asset_mtl_17" src="models/Cloud_Maru_002.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_003_Asset_obj_18" src="models/Cloud_Maru_003.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_003_Asset_mtl_18" src="models/Cloud_Maru_003.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_004_Asset_obj_19" src="models/Cloud_Maru_004.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_004_Asset_mtl_19" src="models/Cloud_Maru_004.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_005_Asset_obj_20" src="models/Cloud_Maru_005.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_005_Asset_mtl_20" src="models/Cloud_Maru_005.mtl"></a-asset-item>
+<a-asset-item id="Cloud_Maru_B_Asset_obj_21" src="models/Cloud_Maru_B.obj"></a-asset-item>
+<a-asset-item id="Cloud_Maru_B_Asset_mtl_21" src="models/Cloud_Maru_B.mtl"></a-asset-item>
+<a-asset-item id="Design_A_Asset_obj_22" src="models/Design_A.obj"></a-asset-item>
+<a-asset-item id="Design_A_Asset_mtl_22" src="models/Design_A.mtl"></a-asset-item>
+<a-asset-item id="Design_B_Asset_obj_23" src="models/Design_B.obj"></a-asset-item>
+<a-asset-item id="Design_B_Asset_mtl_23" src="models/Design_B.mtl"></a-asset-item>
+<a-asset-item id="TANK_Asset_obj_24" src="models/TANK.obj"></a-asset-item>
+<a-asset-item id="TANK_Asset_mtl_24" src="models/TANK.mtl"></a-asset-item>
+<a-asset-item id="UFO_TOP_Asset_obj_25" src="models/UFO_Top.obj"></a-asset-item>
+<a-asset-item id="UFO_TOP_Asset_mtl_25" src="models/UFO_Top.mtl"></a-asset-item>
+<a-asset-item id="UFO_RING_main_Asset_obj_26" src="models/UFO_ring.obj"></a-asset-item>
+<a-asset-item id="UFO_RING_main_Asset_mtl_26" src="models/UFO_ring.mtl"></a-asset-item>
+<a-asset-item id="UFO_Bmain_ring_Asset_obj_27" src="models/UFO_Bmain_ring.obj"></a-asset-item>
+<a-asset-item id="UFO_Bmain_ring_Asset_mtl_27" src="models/UFO_Bmain_ring.mtl"></a-asset-item>
+<a-asset-item id="UFO_Bmain_Asset_obj_28" src="models/UFO_Bmain.obj"></a-asset-item>
+<a-asset-item id="UFO_Bmain_Asset_mtl_28" src="models/UFO_Bmain.mtl"></a-asset-item>
+</a-assets>
+<!-- END: Unity Compiled Assets -->
+<!-- BEGIN: Add Image Target (marker) -->
+<a-marker id="marker" preset="hiro" emitevents="true" button>
+<!-- END: Add Image Target (marker) -->
+
+<!-- BEGIN: Unity Compiled Objects -->
+<a-entity obj-model="obj: #Cloud_A_Asset_obj_0; mtl: #Cloud_A_Asset_mtl_0" id="Cloud_A_0" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Build_B_Top_Asset_obj_1; mtl: #Build_B_Top_Asset_mtl_1" id="Build_B_Top_1" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Build_B_Bot_Asset_obj_2; mtl: #Build_B_Bot_Asset_mtl_2" id="Build_B_Bot_2" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Build_C_Top_Asset_obj_3; mtl: #Build_C_Top_Asset_mtl_3" id="Build_C_Top_3" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Build_C_Bot_Asset_obj_4; mtl: #Build_C_Bot_Asset_mtl_4" id="Build_C_Bot_4" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Build_A_Asset_obj_5; mtl: #Build_A_Asset_mtl_5" id="Build_A_5" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B001_Asset_obj_6; mtl: #Cloud_B001_Asset_mtl_6" id="Cloud_B001_6" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B002_Asset_obj_7; mtl: #Cloud_B002_Asset_mtl_7" id="Cloud_B002_7" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B003_Asset_obj_8; mtl: #Cloud_B003_Asset_mtl_8" id="Cloud_B003_8" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B004_Asset_obj_9; mtl: #Cloud_B004_Asset_mtl_9" id="Cloud_B004_9" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B005_Asset_obj_10; mtl: #Cloud_B005_Asset_mtl_10" id="Cloud_B005_10" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B_nuki_0_Right_Asset_obj_11; mtl: #Cloud_B_nuki_0_Right_Asset_mtl_11" id="Cloud_B_nuki_0_Right_11" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_B_nuki_2_Right_Asset_obj_12; mtl: #Cloud_B_nuki_2_Right_Asset_mtl_12" id="Cloud_B_nuki_2_Right_12" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_C_Asset_obj_13; mtl: #Cloud_C_Asset_mtl_13" id="Cloud_C_13" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_C001_Asset_obj_14; mtl: #Cloud_C001_Asset_mtl_14" id="Cloud_C001_14" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_C_nuki_2_Left_Asset_obj_15; mtl: #Cloud_C_nuki_2_Left_Asset_mtl_15" id="Cloud_C_nuki_2_Left_15" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_01_Asset_obj_16; mtl: #Cloud_Maru_01_Asset_mtl_16" id="Cloud_Maru_01_16" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_002_Asset_obj_17; mtl: #Cloud_Maru_002_Asset_mtl_17" id="Cloud_Maru_002_17" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_003_Asset_obj_18; mtl: #Cloud_Maru_003_Asset_mtl_18" id="Cloud_Maru_003_18" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_004_Asset_obj_19; mtl: #Cloud_Maru_004_Asset_mtl_19" id="Cloud_Maru_004_19" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_005_Asset_obj_20; mtl: #Cloud_Maru_005_Asset_mtl_20" id="Cloud_Maru_005_20" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Cloud_Maru_B_Asset_obj_21; mtl: #Cloud_Maru_B_Asset_mtl_21" id="Cloud_Maru_B_21" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Design_A_Asset_obj_22; mtl: #Design_A_Asset_mtl_22" id="Design_A_22" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #Design_B_Asset_obj_23; mtl: #Design_B_Asset_mtl_23" id="Design_B_23" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #TANK_Asset_obj_24; mtl: #TANK_Asset_mtl_24" id="TANK_24" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #UFO_TOP_Asset_obj_25; mtl: #UFO_TOP_Asset_mtl_25" id="UFO_TOP_25" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #UFO_RING_main_Asset_obj_26; mtl: #UFO_RING_main_Asset_mtl_26" id="UFO_RING_main_26" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #UFO_Bmain_ring_Asset_obj_27; mtl: #UFO_Bmain_ring_Asset_mtl_27" id="UFO_Bmain_ring_27" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<a-entity obj-model="obj: #UFO_Bmain_Asset_obj_28; mtl: #UFO_Bmain_Asset_mtl_28" id="UFO_Bmain_28" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+></a-entity>
+<!-- END: Unity Compiled Objects -->
+
+<!-- BEGIN: Bottom HTML -->
+</a-marker>
+        <a-entity camera></a-entity>
+        </a-scene>
+</body>
+</html><!-- END: Bottom HTML -->
