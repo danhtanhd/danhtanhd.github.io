@@ -12,5 +12,5 @@ newmtl Clouds
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka D:\Works\222_ãgíâè¨ìcã}\ARModel_191225\maps\Clouds.jpg
-	map_Kd D:\Works\222_ãgíâè¨ìcã}\ARModel_191225\maps\Clouds.jpg
+	map_Ka Clouds.jpg
+	map_Kd Clouds.jpg

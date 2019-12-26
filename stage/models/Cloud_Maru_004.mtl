@@ -12,5 +12,5 @@ newmtl Cloud_Small
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka D:\Works\222_ãgíâè¨ìcã}\max_1226_006\tex\Cloud_Small.jpg
-	map_Kd D:\Works\222_ãgíâè¨ìcã}\max_1226_006\tex\Cloud_Small.jpg
+	map_Ka Cloud_Small.jpg
+	map_Kd Cloud_Small.jpg
