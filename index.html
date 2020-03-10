@@ -1,274 +1,145 @@
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" href="index.css">
-  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+<header>
+	<!-- Global site tag (gtag.js) - Google Analytics-->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154688282-4"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-154688282-4');
+	</script> 
+
+</header>
+
+
+
+<script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
 <!-- include ar.js -->
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.0/aframe/build/aframe-ar.js"></script>
 <!-- to load .ply model -->
-<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.1/dist/aframe-extras.loaders.min.js"></script>
 <!-- include A-Frame obviously-->
-    <meta name="Multimarker Demo" >
-		<script>   //Loads multimarker file to localstorage otherwise the area preset will only look for hiro alone
-			var a = window.location.toString();
-			var file = a.substring(a.indexOf("?") + 1);
-			
-			var xobj = new XMLHttpRequest();
-					xobj.overrideMimeType("application/json");
-					if(file==a){
-					  xobj.open('GET', 'ARjsMultiMarkerFile', true); // 
-					}
-					else{
-					  xobj.open('GET', file, true); // 
-					}
-				  xobj.onreadystatechange = function () { 
-			  if (xobj.readyState == 4 && xobj.status == "200") {
-				localStorage.setItem('ARjsMultiMarkerFile',xobj.responseText);
-				}};
-				xobj.send();
-         </script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-			AFRAME.registerComponent("listener", {
-		    init: function() {
-			this.target = document.querySelector('#target'); // your video
-			this.prevPosition = null; // initially there is no position or rotation
-			this.prevRotation = null;
-		  },
-
-		  tick: function() {
-			if (this.el.object3D.visible) {
-			  this.target.setAttribute('visible', 'true')
-
-			  if(!this.prevPosition && !this.prevRotation) { 
-				// there are no values to lerp from - set the initial values
-				this.target.setAttribute('position', this.el.getAttribute('position'))
-				this.target.setAttribute('rotation', this.el.getAttribute('rotation'))
-			  } else {
-				// use the previous values to get an approximation 
-				this.target.object3D.position.lerp(this.prevPosition, 0.1)
-
-				// this (below) may seem ugly, but the rotation is a euler, not a THREE.Vector3, 
-				// so to use the lerp function i'm doing some probably unnecessary conversions
-				let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
-				this.target.object3D.rotation.setFromVector3(rot)
-			  }
-			  // update the values
-			  this.prevPosition = this.el.object3D.position
-			  this.prevRotation = this.el.object3D.rotation
-			} else {
-			 // the marker dissapeared - reset the values
-			 this.target.setAttribute('visible', 'false')
-			 this.prevPosition = null;
-			 this.prevRotation = null;
-		   }
-		  }
-		})
-  </script>
-    <!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->  
-
-
-
-<body>
-<a-scene embedded arjs="trackingMethod: best; debugUIEnabled: false; sourceType: webcam; detectionMode: mono;" vr-mode-ui="enabled: false;" >
-    <a-assets>
-      <img id="Illustration_04" src="image/Illustration_04-2_a.png">
-      <a-asset-item id="Model_Asset_mtl_1" src=""></a-asset-item>
-	  <a-asset-item id="Build_A_obj" src="models/ARModel_191212_003/Build_A.obj"></a-asset-item>
-      <a-asset-item id="Build_A_mtl" src="models/ARModel_191212_003/Build_A.mtl"></a-asset-item>
-	  <a-asset-item id="Build_B_obj" src="models/ARModel_191212_003/Build_B.obj"></a-asset-item>
-      <a-asset-item id="Build_B_mtl" src="models/ARModel_191212_003/Build_B.mtl"></a-asset-item>
-	  <a-asset-item id="Build_C_obj" src="models/ARModel_191212_003/Build_C.obj"></a-asset-item>
-      <a-asset-item id="Build_C_mtl" src="models/ARModel_191212_003/Build_C.mtl"></a-asset-item>
-	  <a-asset-item id="Cloud_A_obj" src="models/ARModel_191212_003/Cloud_A.obj"></a-asset-item>
-      <a-asset-item id="Cloud_A_mtl" src="models/ARModel_191212_003/Cloud_A.mtl"></a-asset-item>
-	  <a-asset-item id="Cloud_B_obj" src="models/ARModel_191212_003/Cloud_B.obj"></a-asset-item>
-      <a-asset-item id="Cloud_B_mtl" src="models/ARModel_191212_003/Cloud_B.mtl"></a-asset-item>
-	  <a-asset-item id="Cloud_C_obj" src="models/ARModel_191212_003/Cloud_C.obj"></a-asset-item>
-      <a-asset-item id="Cloud_C_mtl" src="models/ARModel_191212_003/Cloud_C.mtl"></a-asset-item>
-	  <a-asset-item id="Design_A_obj" src="models/ARModel_191212_003/Design_A.obj"></a-asset-item>
-      <a-asset-item id="Design_A_mtl" src="models/ARModel_191212_003/Design_A.mtl"></a-asset-item>
-	  <a-asset-item id="Design_B_obj" src="models/ARModel_191212_003/Design_B.obj"></a-asset-item>
-      <a-asset-item id="Design_B_mtl" src="models/ARModel_191212_003/Design_B.mtl"></a-asset-item>
-	  <a-asset-item id="TANK_obj" src="models/ARModel_191212_003/TANK.obj"></a-asset-item>
-      <a-asset-item id="TANK_mtl" src="models/ARModel_191212_003/TANK.mtl"></a-asset-item>
-	  <a-asset-item id="UFO_obj" src="models/ARModel_191212_003/UFO.obj"></a-asset-item>
-      <a-asset-item id="UFO_mtl" src="models/ARModel_191212_003/UFO.mtl"></a-asset-item>
-	  
-      <img id="ringfont" src="image/Illustration_04-2_b1.png">
-      <img id="ringback" src="image/Illustration_04-2_b2.png">
-    </a-assets>
-    <a-marker preset="area" smooth="true" smoothcount="10" >
-      <a-entity rotation="-90 0 0" position="2 -0.5 0" scale="3 3 3">
-        
-           <a-image src="#ringback" position="-0.3225 1.895 -1.07" scale="0.51 0.2 0.5" rotation="0 0 0"  transparent="False"
-           animation__sphere_2_f0= "property: position;  to: -0.3225 1.895 -1.07; dur: 0; easing: linear; "
-           animation__sphere_2_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_2_f0= "property: radius;  to: 0.05; dur: 0; easing: linear; "
-           animation__sphere_2_f1= "property: position; from: -0.3225 1.895 -1.07; to: -0.3225 2.095 -1.07; dur: 5000; easing: linear; startEvents: animationcomplete__sphere_2_f0, animationcomplete__sphere_2_f3;"
-           animation__sphere_2_f1= "property: rotation; from: 0 0 0; to: 0 -359 0; dur: 4000; easing: linear; startEvents: animationcomplete__sphere_2_f0, animationcomplete__sphere_2_f3;"
-           animation__sphere_2_f2= "property: rotation; from: 0 -359 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_2_f1;"
-           animation__sphere_2_f3= "property: position; from: -0.3225 2.095 -1.07; to: -0.3225 1.895 -1.07; dur: 4999; easing: linear; startEvents: animationcomplete__sphere_2_f2;" ></a-image>
-           <a-image src="#Illustration_04" position="-0.3125 1.85 -1" scale="0.7 2 2"  ></a-image>
-           <a-image src="#ringfont" position="-0.3 1.9 -0.97" scale="0.5 0.2 0.5" rotation="0 0 0"  transparent="False"
-           animation__sphere_2_f0= "property: position;  to: -0.3 1.9 -0.97; dur: 0; easing: linear; "
-           animation__sphere_2_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_2_f0= "property: radius;  to: 0.05; dur: 0; easing: linear; "
-           animation__sphere_2_f1= "property: position; from: -0.3 1.9 -0.97; to: -0.3 2.1 -0.97; dur: 5000; easing: linear; startEvents: animationcomplete__sphere_2_f0, animationcomplete__sphere_2_f3;"
-           animation__sphere_2_f1= "property: rotation; from: 0 0 0; to: 0 -359 0; dur: 4000; easing: linear; startEvents: animationcomplete__sphere_2_f0, animationcomplete__sphere_2_f3;"
-           animation__sphere_2_f2= "property: rotation; from: 0 -359 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_2_f1;"
-           animation__sphere_2_f3= "property: position; from: -0.3 2.1 -0.97; to: -0.3 1.9 -0.97; dur: 4999; easing: linear; startEvents: animationcomplete__sphere_2_f2;" ></a-image>
-     <a-entity obj-model="obj:#Cloud_B_obj ; mtl: #Cloud_B_mtl" id="Cloud_B" class="intersectable"  position="0.4 0.9 -0.9" scale="0.008 0.008 0.008" rotation="45 0 0"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: 0.4 0.9 -0.9; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 45 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: 0.4 0.9 -0.9; to: 0.6 0.9 -0.9; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 45 0; to: 0 45 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: 0.6 0.9 -0.9; to: 0.4 0.9 -0.9; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 45 0; to: 0 45 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-        
-          <a-entity obj-model="obj:#Cloud_B_obj ; mtl: #Cloud_B_mtl" id="Cloud_B3" class="intersectable"  position="-1.1 1.2 -0.9" scale="0.008 0.008 0.008" rotation="0 0 0"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1.1 1.2 -0.9; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1.1 1.2 -0.9; to: -1.4 1.2 -0.9; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -1.4 1.2 -0.9; to: -1.1 1.2 -0.9; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-        
-        <a-entity obj-model="obj:#Build_B_obj ; mtl: #Build_B_mtl" id="buildB" class="intersectable" scale="0.008 0.01 0.008" position="1.4 0.7 -0.4" rotation="0 0 0" transparent="False"
-           animation__sphere_0_f0= "property: position;  to: 1.4 0.7 -0.4; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: 1.4 0.7 -0.4; to: 1.4 1.0 -0.4; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: 1.4 1.0 -0.4; to: 1.4 0.7 -0.4; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-       
-     
-
-     
-     <a-entity obj-model="obj:#Design_B_obj ; mtl: #Design_B_mtl" id="DesignB" class="intersectable" scale="0.008 0.008 0.008"  position="1 0.9 0.3"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: 1 0.9 0.3; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: 1 0.9 0.3; to: 1 1.25 0.3; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: 1 1.25 0.3; to: 1 0.9 0.3; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-     <a-entity obj-model="obj:#TANK_obj; mtl: #TANK_mtl" id="tank" class="intersectable" scale="0.004 0.004 0.004" position="0.4 0.8 -0.1" rotation="0 0 0" color="#ffffff" transparent="False"></a-entity>
-
-       <a-entity obj-model="obj:#Cloud_A_obj ; mtl: #Cloud_A_mtl" id="Clouda" class="intersectable" scale="0.008 0.008 0.008"  position="1 0.7 0.4" transparent="False"
-       animation__sphere_0_f0= "property: position;  to: 1 0.7 0.4; dur: 0; easing: linear; "
-       animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-       animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-       animation__sphere_0_f1= "property: position; from: 1 0.7 0.4; to: 1.3 0.7 0.4; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-       animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-       animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-       animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-       animation__sphere_0_f3= "property: position; from: 1.3 0.7 0.4; to: 1 0.7 0.4; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-       animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-       animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-   
-    
-      
-       <a-entity obj-model="obj:#Design_A_obj ; mtl: #Design_A_mtl" id="DesignA" class="intersectable" scale="0.008 0.008 0.008"  position="-1.5 1.6 -0.4"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1.5 1.6 -0.4; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1.5 1.6 -0.4; to: -1.5 1.8 -0.4; dur: 4000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -1.5 1.8 -0.4; to: -1.5 1.6 -0.4; dur: 3999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-                   animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-            -->
-       <a-entity obj-model="obj:#Build_C_obj ; mtl: #Build_C_mtl" id="buildC" class="intersectable" scale="0.008 0.008 0.008" position="-1.2 1.2 -0.15"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1.2 1.2 -0.15; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1.2 1.2 -0.15; to: -1.2 1.5 -0.15; dur: 3800; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -1.2 1.5 -0.15; to: -1.2 1.2 -0.15; dur: 3799; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-                   animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-           
-       
-          <a-entity obj-model="obj:#Cloud_C_obj ; mtl: #Cloud_C_mtl" id="Cloud_C" rotation="-45 0 0" class="intersectable" scale="0.008 0.015 0.008" position="-1.7 0.9 -0.3"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1.7 0.9 -0.3; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1.7 0.9 -0.3; to: -1.7 1.2 -0.3; dur: 3500; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -1.7 1.2 -0.3; to: -1.7 0.9 -0.3; dur: 3499; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-        <a-entity obj-model="obj:#UFO_obj; mtl: #UFO_mtl" id="UFO" class="intersectable" scale="0.008 0.008 0.008" position="0.4 2 0" transparent="False" depth="0.1"  rotation="0 -359 0" color="#FFFFFF" 
-         animation__cube_3_f0="property: position;  to: 0.4 2 0; dur: 0; easing: linear; "
-         animation__cube_3_f0="property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-         animation__cube_3_f0="property: width;  to: 0.1; dur: 0; easing: linear; "
-         animation__cube_3_f0="property: height;  to: 0.1; dur: 0; easing: linear; "
-         animation__cube_3_f0="property: depth;  to: 0.1; dur: 0; easing: linear; "
-         animation__cube_3_f1="property: rotation; from: 0 0 0; to: 0 -359 0; dur: 3000; easing: linear; startEvents: animationcomplete__cube_3_f0, animationcomplete__cube_3_f3;"
-         animation__cube_3_f2="property: rotation; from: 0 -359 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__cube_3_f1;"
-         animation__cube_3_f3="property: rotation; from: 0 0 0; to: 0 -359 0; dur: 2999; easing: linear; startEvents: animationcomplete__cube_3_f2;">  </a-entity>
-        
-         <a-entity obj-model="obj:#Build_A_obj ; mtl: #Build_A_mtl" id="builA" class="intersectable" rotation"0 30 0" scale="0.008 0.008 0.008" position="-1 0.7 0.1" transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1 0.7 0.1; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1 0.7 0.1; to: -1 1 0.1; dur: 4000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -1 1 0.1; to: -1 0.7 0.1; dur: 3999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-
-         
-       <a-entity obj-model="obj:#Cloud_B_obj ; mtl: #Cloud_B_mtl" id="Cloud_B2" class="intersectable" scale="0.008 0.008 0.008" position="-1 0.6 0.51"  transparent="False"
-           animation__sphere_0_f0= "property: position;  to: -1 0.6 0.51; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: rotation;  to: 0 0 0; dur: 0; easing: linear; "
-           animation__sphere_0_f0= "property: radius;  to: 0; dur: 0; easing: linear; "
-           animation__sphere_0_f1= "property: position; from: -1 0.6 0.51; to: -0.7 0.6 0.51; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f1= "property: radius; from: 0; to: 0; dur: 3000; easing: linear; startEvents: animationcomplete__sphere_0_f0, animationcomplete__sphere_0_f3;"
-           animation__sphere_0_f2= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 0.9999275; easing: linear; startEvents: animationcomplete__sphere_0_f1;"
-           animation__sphere_0_f3= "property: position; from: -0.7 0.6 0.51; to: -1 0.6 0.51; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: rotation; from: 0 0 0; to: 0 0 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"
-           animation__sphere_0_f3= "property: radius; from: 0; to: 0; dur: 2999; easing: linear; startEvents: animationcomplete__sphere_0_f2;"></a-entity>
-   
-      
-   
-       <a-entity obj-model="obj: https://cdn.glitch.com/c628413c-a99a-4adc-8775-41a55896ce11%2Fbase.obj?v=1575345796978; mtl: #Model_Asset_mtl_1" id="Model_2" class="intersectable" scale="0.008 0.008 0.008" position="0 0 0" rotation="0 0 0" color="#ffffff" transparent="False"></a-entity>
-      </a-entity>
+<script>   //Loads multimarker file to localstorage otherwise the area preset will only look for hiro alone
+  var a = window.location.toString();
+  var file = a.substring(a.indexOf("?") + 1);
   
-     </a-marker>
-  <a-entity camera></a-entity>
-</a-scene>
-</body>
-</html>
+  var xobj = new XMLHttpRequest();
+      xobj.overrideMimeType("application/json");
+      if(file==a){
+        xobj.open('GET', 'ARjsMultiMarkerFile', true); // 
+      }
+      else{
+        xobj.open('GET', file, true); // 
+      }
+      xobj.onreadystatechange = function () { 
+    if (xobj.readyState == 4 && xobj.status == "200") {
+    localStorage.setItem('ARjsMultiMarkerFile',xobj.responseText);
+    }};
+    xobj.send();
+</script>
+<script>
+AFRAME.registerComponent('model-opacity', {
+schema: {default: 1.0},
+init: function () {
+this.el.addEventListener('model-loaded', this.update.bind(this));
+},
+update: function () {
+var mesh = this.el.getObject3D('mesh');
+var data = this.data;
+if (!mesh) { return; }
+mesh.traverse(function (node) {
+  if (node.isMesh) {
+    node.material.opacity = data;
+    node.material.transparent = data < 1.0;
+    node.material.needsUpdate = true;
+  }
+});
+}
+});
+</script>
+
+  <body>
+   
+    <a-scene embedded arjs=" debugUIEnabled: false;" vr-mode-ui="enabled: false" >
+
+          <a-marker preset="area">
+            <a-light type="ambient" color="white" intensity="1.7"></a-light>
+            <a-entity scale="1 1 1">
+            <!-- <a-light type="ambient" color="white" intensity="1.5"></a-light> -->
+            <a-obj-model src="models/Cloud_A.obj" mtl="models/Cloud_A.mtl" id="Cloud_A_0" model-opacity="0.4" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <!-- <a-entity obj-model="obj: Cloud_A_Asset_obj_0; mtl:Cloud_A_Asset_mtl_0" id="Cloud_A_0" model-opacity="0.5" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-entity> -->
+            <a-obj-model src="models/Build_B_all.obj" mtl="models/Build_B_all.mtl" id="Build_B_Top_1" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <!-- <a-obj-model src="models/Build_B_Bot.obj" mtl="models/Build_B_Bot.mtl"  id="Build_B_Bot_2" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Build_C_Top.obj"  mtl="models/Build_C_Top.mtl"  id="Build_C_Top_3" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model> -->
+            <a-obj-model src="models/Build_C_all.obj"  mtl="models/Build_C_all.mtl"  id="Build_C_Bot_4" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Build_A.obj"  mtl="models/Build_A.mtl" id="Build_A_5" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_B001.obj"  mtl="models/Cloud_B001.mtl"  id="Cloud_B001_6" model-opacity="0.5" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_B002.obj"  mtl="models/Cloud_B002.mtl"  id="Cloud_B002_7" model-opacity="0.4" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+
+            ></a-obj-model>
+            <!-- <a-entity obj-model="obj:models/Cloud_B001.obj; mtl: models/Cloud_B001.mtl" id="Cloud_B001_6" model-opacity="0.5" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-entity>
+            <a-entity obj-model="obj: models/Cloud_B002.obj; mtl: models/Cloud_B002.mtl" id="Cloud_B002_7"  model-opacity="0.6"  class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-entity> -->
+            <a-obj-model src="models/Cloud_Group_1.obj"  mtl="models/Cloud_Group_1.mtl"  id="Cloud_B003_8" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <!-- <a-obj-model src="models/Cloud_B004.obj"  mtl="models/Cloud_B004.mtl" id="Cloud_B004_9" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_B005.obj"  mtl="models/Cloud_B005.mtl"  id="Cloud_B005_10" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model> -->
+            <a-obj-model src="models/Cloud_B_nuki_0_Right.obj"  mtl="models/Cloud_B_nuki_0_Right.mtl"  id="Cloud_B_nuki_0_Right_11" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_B_nuki_2_Right.obj"  mtl="models/Cloud_B_nuki_2_Right.mtl"  id="Cloud_B_nuki_2_Right_12" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <!-- <a-obj-model src="models/Cloud_C.obj"  mtl="models/Cloud_C.mtl"  id="Cloud_C_13" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model> -->
+            <a-obj-model src="models/Cloud_C001.obj"  mtl="models/Cloud_C001.mtl"  id="Cloud_C001_14" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_C_ADD.obj"  mtl="models/Cloud_C_ADD.mtl"  id="Cloud_C_nuki_2_Left_15" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <!-- <a-obj-model src="models/Cloud_Maru_01.obj"  mtl="models/Cloud_Maru_01.mtl"  id="Cloud_Maru_01_16" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_Maru_002.obj"  mtl="models/Cloud_Maru_002.mtl"  id="Cloud_Maru_002_17" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_Maru_003.obj"  mtl="models/Cloud_Maru_003.mtl"  id="Cloud_Maru_003_18" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_Maru_004.obj"  mtl="models/Cloud_Maru_004.mtl"  id="Cloud_Maru_004_19" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model> -->
+            <a-obj-model src="models/Cloud_Maru_Group.obj"  mtl="models/Cloud_Maru_Group.mtl"  id="Cloud_Maru_005_20" class="intersectable" scale="2.702703 2.702703 2.702703" position="1.345 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Cloud_Maru_B.obj"  mtl="models/Cloud_Maru_B.mtl"  id="Cloud_Maru_B_21" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Design_A.obj"  mtl="models/Design_A.mtl"  id="Design_A_22" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.88 -0.63 1.55" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/Design_B.obj"  mtl="models/Design_B.mtl"  id="Design_B_23" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/TANK.obj"  mtl="models/TANK.mtl"  id="TANK_24" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/UFO_Top.obj"  mtl="models/UFO_Top.mtl"  id="UFO_TOP_25" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/UFO_ring.obj"  mtl="models/UFO_ring.mtl"  id="UFO_RING_main_26" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/UFO_Bmain_ring.obj"  mtl="models/UFO_Bmain_ring.mtl"  id="UFO_Bmain_ring_27" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model>
+            <a-obj-model src="models/UFO_Bmain.obj"  mtl="models/UFO_Bmain.mtl"  id="UFO_Bmain_28" class="intersectable" scale="2.702703 2.702703 2.702703" position="2.567 -0.63 2.1" rotation="0 0 0" color="#ffffff" transparent=False
+            ></a-obj-model> 
+            <!--<a-entity obj-model="obj: #base_Asset_obj_10; mtl: #base_Asset_mtl_10" id="base_10" class="intersectable" scale="0.01 0.01000001 0.01000001" position="0.177 0 -0.341" rotation="270 0 0" color="#ffffff" transparent="False"
+            ></a-obj-model>-->
+          </a-entity>
+                
+              </a-marker>
+              <a-entity camera position="0 0 0"></a-obj-model>
+            </a-scene>
+            </body>
+            </html>
